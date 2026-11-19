@@ -223,6 +223,7 @@ func (rm *RecordManager) AverageSystemStats(db dbx.Builder, records RecordIds) *
 		sum.DiskWritePs += stats.DiskWritePs
 		sum.NetworkSent += stats.NetworkSent
 		sum.NetworkRecv += stats.NetworkRecv
+		sum.Connections += stats.Connections
 		sum.LoadAvg[0] += stats.LoadAvg[0]
 		sum.LoadAvg[1] += stats.LoadAvg[1]
 		sum.LoadAvg[2] += stats.LoadAvg[2]
@@ -365,6 +366,7 @@ func (rm *RecordManager) AverageSystemStats(db dbx.Builder, records RecordIds) *
 		}
 		sum.NetworkSent = twoDecimals(sum.NetworkSent / count)
 		sum.NetworkRecv = twoDecimals(sum.NetworkRecv / count)
+		sum.Connections = twoDecimals(sum.Connections / count)
 		sum.LoadAvg[0] = twoDecimals(sum.LoadAvg[0] / count)
 		sum.LoadAvg[1] = twoDecimals(sum.LoadAvg[1] / count)
 		sum.LoadAvg[2] = twoDecimals(sum.LoadAvg[2] / count)

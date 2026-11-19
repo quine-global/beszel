@@ -90,6 +90,8 @@ export interface SystemStats {
 	cpus?: number[]
 	/** load average */
 	la?: [number, number, number]
+	/** open tcp connections on the agent's CONNECTION_PORTS */
+	conn?: number
 	/** total memory (gb) */
 	m: number
 	/** memory used (gb) */

@@ -48,6 +48,7 @@ type Agent struct {
 	keys                      []gossh.PublicKey                                     // SSH public keys
 	smartManager              *SmartManager                                         // Manages SMART data
 	systemdManager            *systemdManager                                       // Manages systemd services
+	connectionPorts           map[uint16]struct{}                                   // Local TCP ports whose connections are counted (CONNECTION_PORTS)
 }
 
 // NewAgent creates a new agent with the given data directory for persisting data.
@@ -72,6 +73,7 @@ func NewAgent(dataDir ...string) (agent *Agent, err error) {
 	}
 
 	agent.memCalc, _ = utils.GetEnv("MEM_CALC")
+	agent.connectionPorts = connectionPorts()
 	agent.sensorConfig = agent.newSensorConfig()
 
 	// Parse disk usage cache duration (e.g., "15m", "1h") to avoid waking sleeping disks

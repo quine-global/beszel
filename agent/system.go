@@ -167,6 +167,15 @@ func (a *Agent) getSystemStats(cacheTimeMs uint16) system.Stats {
 		slog.Error("Error getting load average", "err", err)
 	}
 
+	// open connections on CONNECTION_PORTS
+	if len(a.connectionPorts) > 0 {
+		if n, err := countConnections(a.connectionPorts); err == nil {
+			systemStats.Connections = float64(n)
+		} else {
+			slog.Error("Error counting connections", "err", err)
+		}
+	}
+
 	// memory
 	if v, err := mem.VirtualMemory(); err == nil {
 		// swap
