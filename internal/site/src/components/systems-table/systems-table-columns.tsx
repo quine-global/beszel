@@ -21,6 +21,7 @@ import {
 	TerminalSquareIcon,
 	Trash2Icon,
 	WifiIcon,
+	CableIcon,
 } from "lucide-react"
 import { memo, useMemo, useRef, useState } from "react"
 import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip"
@@ -233,6 +234,23 @@ export function SystemsTableColumns(viewMode: "table" | "grid"): ColumnDef<Syste
 						))}
 					</div>
 				)
+			},
+		},
+		{
+			// Open TCP connections on the agent's CONNECTION_PORTS: only for
+			// agents that count them.
+			accessorFn: ({ info, status }) => (status !== SystemStatus.Up ? undefined : info.conn),
+			id: "connections",
+			name: () => t`Connections`,
+			size: 0,
+			Icon: CableIcon,
+			header: sortableHeader,
+			cell(info: CellContext<SystemRecord, unknown>) {
+				const value = info.getValue() as number | undefined
+				if (value === undefined) {
+					return null
+				}
+				return <span className="tabular-nums">{Math.round(value)}</span>
 			},
 		},
 		{

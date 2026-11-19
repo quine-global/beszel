@@ -262,6 +262,7 @@ func (a *Agent) getSystemStats(cacheTimeMs uint16) system.Stats {
 	a.systemInfo.ConnectionType = a.connectionManager.ConnectionType
 	a.systemInfo.Cpu = systemStats.Cpu
 	a.systemInfo.LoadAvg = systemStats.LoadAvg
+	a.systemInfo.Connections = systemStats.Connections
 	a.systemInfo.MemPct = systemStats.MemPct
 	a.systemInfo.DiskPct = systemStats.DiskPct
 	a.systemInfo.Battery = systemStats.Battery

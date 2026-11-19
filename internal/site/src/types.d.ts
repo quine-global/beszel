@@ -45,6 +45,8 @@ export interface SystemInfo {
 	c: number
 	/** cpu model */
 	m: string
+	/** open tcp connections on the agent's CONNECTION_PORTS */
+	conn?: number
 	/** load average */
 	la?: [number, number, number]
 	/** operating system */
