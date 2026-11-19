@@ -33,11 +33,6 @@ func setCollectionAuthSettings(app core.App) error {
 		usersCollection.CreateRule = nil
 	}
 
-	// an OpenID Connect provider from the environment (OIDC_*), if set
-	if err := setOIDCProvider(usersCollection); err != nil {
-		return err
-	}
-
 	// enable mfaOtp mfa if MFA_OTP env var is set
 	mfaOtp, _ := GetEnv("MFA_OTP")
 	usersCollection.OTP.Length = 6
