@@ -46,6 +46,19 @@ export const showLoginFaliedToast = (description?: string) => {
 	})
 }
 
+/** A failed sign-in's reason, as text for the toast (it can't show an Error
+ * object). The common OAuth2 case gets a plain explanation: PocketBase only
+ * takes an email address the provider says is verified, so an account
+ * without one fails with "email: cannot be blank". */
+const describeAuthError = (err: any): string | undefined => {
+	const fields = err?.response?.data
+	if (fields?.email) {
+		return t`The sign-in provider didn't share a verified email address for your account. Ask its administrator to add one and mark it as verified.`
+	}
+	const message = err?.response?.message || err?.message
+	return typeof message === "string" && message ? message : undefined
+}
+
 const getAuthProviderIcon = (provider: AuthProviderInfo) => {
 	let { name } = provider
 	if (name.startsWith("oidc")) {
@@ -165,7 +178,7 @@ export function UserAuthForm({
 			.then(() => {
 				$authenticated.set(pb.authStore.isValid)
 			})
-			.catch(showLoginFaliedToast)
+			.catch((err) => showLoginFaliedToast(describeAuthError(err)))
 			.finally(() => {
 				setIsOauthLoading(false)
 			})
