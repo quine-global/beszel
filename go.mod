@@ -3,7 +3,7 @@ module github.com/henrygd/beszel
 go 1.27.3
 
 require (
-	ganigeorgiev.com/pocketbase/dbx v1.13.0
+	ganigeorgiev.com/pocketbase/dbx v1.14.0
 	ganigeorgiev.com/pocketbase/pocketbase v0.42.2
 	github.com/blang/semver v3.5.1+incompatible
 	github.com/coreos/go-systemd/v22 v22.7.0
